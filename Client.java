@@ -29,16 +29,13 @@ public class Client {
 			doc.appendChild(rootElement);
 			
 			Element rate = doc.createElement("rate");
-			Attr x = doc.createAttribute("x");
-			x.setValue("1");			
-			rate.setAttributeNode(x);
-			rootElement.appendChild(rate);
-			
-			Element rate2 = doc.createElement("rate");
 			Attr y = doc.createAttribute("y");
-			y.setValue("1");			
-			rate2.setAttributeNode(y);
-			rootElement.appendChild(rate2);
+			y.setValue(valueY.toString());			
+			rate.setAttributeNode(y);	
+			Attr x = doc.createAttribute("x");
+			x.setValue(valueX.toString());			
+			rate.setAttributeNode(x);						
+			rootElement.appendChild(rate);
 			
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
