@@ -1,6 +1,9 @@
 
 
 import java.io.File;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,7 +46,12 @@ public class Client {
 			StreamResult result = new StreamResult(new File("src/measure.xml"));
 			transformer.transform(source, result);
 			
-			
+			Socket client = new Socket(InetAddress.getLocalHost(), 8020);
+			ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
+			out.writeObject(doc);
+			out.flush();
+			out.close();
+			client.close();
 			
 		}catch(Exception e){
 			e.printStackTrace();
