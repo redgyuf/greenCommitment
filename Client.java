@@ -31,14 +31,21 @@ public class Client {
 			Element rootElement = doc.createElement("measure");
 			doc.appendChild(rootElement);
 			
-			Element rate = doc.createElement("rate");
-			Attr y = doc.createAttribute("y");
-			y.setValue(valueY.toString());			
-			rate.setAttributeNode(y);	
-			Attr x = doc.createAttribute("x");
-			x.setValue(valueX.toString());			
-			rate.setAttributeNode(x);						
-			rootElement.appendChild(rate);
+			
+			for(int i = 1; i <= 31; i++){
+				Element rate = doc.createElement("rate");
+				Attr y = doc.createAttribute("y");
+				valueY = (int) (Math.random()*100);
+				y.setValue(valueY.toString());			
+				rate.setAttributeNode(y);
+				
+				Attr x = doc.createAttribute("x");
+				valueX = i;
+				x.setValue(valueX.toString());			
+				rate.setAttributeNode(x);						
+				rootElement.appendChild(rate);
+			}
+			
 			
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
