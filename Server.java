@@ -21,29 +21,6 @@ public class Server {
 
 	public static void main(String[] args) throws IOException{
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-		/*
-		try{
-			File inputFile = new File("src/measure.xml");
-	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-	        Document doc = dBuilder.parse(inputFile);
-	        doc.getDocumentElement().normalize();
-	        
-	        NodeList nList = doc.getElementsByTagName("rate");
-	        for (int temp = 0; temp < nList.getLength(); temp++) {
-	        	Node nNode = nList.item(temp);	        	 
-	        	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	                Element eElement = (Element) nNode;
-	                System.out.println("x : " + eElement.getAttribute("x"));
-	                System.out.println("y : " + eElement.getAttribute("y"));
-	                dataset.addValue(Integer.parseInt(eElement.getAttribute("y")), "Solar", eElement.getAttribute("x"));
-	        	}
-	        }	        
-	        
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		*/
 		
 		try{
 			ServerSocket sc = new ServerSocket(8020);
@@ -51,9 +28,6 @@ public class Server {
 			ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 			Document doc = (Document)in.readObject();
 			
-			File inputFile = new File("src/measure.xml");
-	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	        doc.getDocumentElement().normalize();
 	        
 	        NodeList nList = doc.getElementsByTagName("rate");
@@ -61,12 +35,7 @@ public class Server {
 	        	Node nNode = nList.item(temp);	        	 
 	        	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 	                Element eElement = (Element) nNode;
-	                System.out.println("x : " + eElement.getAttribute("x"));
-	                System.out.println("y : " + eElement.getAttribute("y"));
 	                dataset.addValue(Integer.parseInt(eElement.getAttribute("y")), "Solar", eElement.getAttribute("x"));
-	                dataset.addValue(Integer.parseInt(eElement.getAttribute("y")), "Solar", "2");
-	                dataset.addValue(Integer.parseInt(eElement.getAttribute("y")), "Solar", "3");
-	                dataset.addValue(Integer.parseInt(eElement.getAttribute("y")), "Solar", "4");
 	        	}
 	        }	        
 	        
@@ -78,12 +47,12 @@ public class Server {
 		
 		
 		JFreeChart lineChartObject = ChartFactory.createLineChart(
-		         "Marc","Day","kWh",
+		         "March","Day","kW/h",
 		         dataset,PlotOrientation.VERTICAL,
 		         true,true,false);
 
-		int width = 640; /* Width of the image */
-		int height = 480; /* Height of the image */ 
+		int width = 800; /* Width of the image */
+		int height = 600; /* Height of the image */ 
 		File lineChart = new File( "src/LineChart.jpeg" ); 
 		ChartUtilities.saveChartAsJPEG(lineChart ,lineChartObject, width ,height);
 	}
